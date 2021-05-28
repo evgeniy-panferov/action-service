@@ -1,0 +1,3 @@
+feign:
+  name: admitad
+  url: https://api.admitad.com/
