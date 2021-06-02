@@ -4,6 +4,7 @@ import com.actionservice.client.model.LoginAdmitad;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -16,21 +17,20 @@ import java.util.Objects;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AdmitadAuthorization {
+public class AdmitadAuthorizationClient {
 
-    @Value("${grant_type}")
-    private String grantType;
     @Value("${client_id}")
     private String clientId;
     @Value("${client_secret}")
     private String clientSecret;
     @Value("${scope}")
     private String scope;
+    @Value("${authorization_url}")
+    private String authorizationUrl;
 
     private final RestTemplate restTemplate;
 
-    private static final String AUTHORIZATION_URL = "https://api.admitad.com/token/";
-
+    @Cacheable("tokenCache")
     public String getToken() {
         log.info("AdmitadAuthorization getToken");
 
@@ -39,7 +39,7 @@ public class AdmitadAuthorization {
         map.add("client_id", clientId);
         map.add("scope", scope);
 
-        ResponseEntity<LoginAdmitad> response = restTemplate.exchange(AUTHORIZATION_URL,
+        ResponseEntity<LoginAdmitad> response = restTemplate.exchange(authorizationUrl,
                 HttpMethod.POST, new HttpEntity<>(map, getHttpHeaders()), LoginAdmitad.class);
 
         return Objects.requireNonNull(response.getBody()).getAccessToken();

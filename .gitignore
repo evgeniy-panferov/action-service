@@ -37,3 +37,6 @@ out/
 .vscode/
 /src/main/resources/admitad.yaml
 /src/main/resources/properties/admitad.yaml
+/src/main/httprequest/admitadrequest.rest
+/src/main/resources/Response.json
+/src/main/resources/responseresource.json
