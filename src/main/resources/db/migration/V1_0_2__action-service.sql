@@ -1,0 +1,25 @@
+ALTER TABLE partner
+    ADD COLUMN last_update TIMESTAMP DEFAULT(now());
+
+ALTER TABLE action
+    ADD COLUMN last_update TIMESTAMP DEFAULT(now());
+
+ALTER TABLE Action ALTER COLUMN description TYPE VARCHAR(20000);
+
+ALTER TABLE Action ALTER COLUMN partner_id drop not null;
+
+ALTER TABLE Action DROP COLUMN partner;
+ALTER TABLE Action DROP COLUMN region_name;
+
+ALTER TABLE action ALTER COLUMN status        DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN description   DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN discount      DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN species       DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN promocode     DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN frameset_link DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN goto_link     DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN short_name    DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN date_start    DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN date_end      DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN image_url     DROP NOT NULL;
+ALTER TABLE action ALTER COLUMN partner_id    DROP NOT NULL;

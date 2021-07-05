@@ -1,6 +1,6 @@
 package com.actionservice.client;
 
-import com.actionservice.client.model.LoginAdmitad;
+import com.actionservice.model.LoginAdmitad;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

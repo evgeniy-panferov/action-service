@@ -1,0 +1,9 @@
+feign:
+  name: admitad
+  url: https://api.admitad.com/
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/action-service
+    username: User
+    password: 123

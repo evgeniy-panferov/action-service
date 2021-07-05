@@ -40,3 +40,4 @@ out/
 /src/main/httprequest/admitadrequest.rest
 /src/main/resources/Response.json
 /src/main/resources/responseresource.json
+/src/main/resources/application.yaml

@@ -1,6 +1,6 @@
-package com.actionservice.client.model.dto;
+package com.actionservice.model.dto;
 
-import com.actionservice.client.model.Campaign;
+import com.actionservice.model.Partner;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -16,9 +16,5 @@ import java.util.List;
 public class Programs {
 
     @JsonProperty(value = "results")
-    List<Campaign> campaigns;
-
-    public Programs(List<Campaign> campaigns) {
-        this.campaigns = campaigns;
-    }
+    private List<Partner> partners;
 }

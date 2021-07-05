@@ -1,6 +1,6 @@
-package com.actionservice.client.model.dto;
+package com.actionservice.model.dto;
 
-import com.actionservice.client.model.Action;
+import com.actionservice.model.Action;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 

@@ -1,8 +1,8 @@
 package com.actionservice.controller;
 
 import com.actionservice.client.AdmitadContentClient;
-import com.actionservice.client.model.Action;
-import com.actionservice.client.model.Campaign;
+import com.actionservice.model.Action;
+import com.actionservice.model.Partner;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +17,12 @@ public class ControllerAdmitad {
     private final AdmitadContentClient admitadContentClient;
 
     @GetMapping
-    public List<Campaign> programsFromSite() {
-        return admitadContentClient.programsFromSite().getCampaigns();
+    public List<Partner> programsFromSite() {
+        return admitadContentClient.partnerFromSite().getPartners();
     }
 
     @GetMapping("action/{campaignId}")
-    public List<Action> actionFromProgram(@PathVariable String campaignId) {
+    public List<Action> actionFromProgram(@PathVariable Long campaignId) {
         return admitadContentClient.actionsFromSite(campaignId).getActions();
     }
 
