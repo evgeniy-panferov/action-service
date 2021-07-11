@@ -1,17 +1,24 @@
 plugins {
 	id 'org.springframework.boot' version '2.4.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.palantir.docker" version "0.26.0"
 	id 'java'
 }
 
 group = 'com.action-service-admitad'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+}
+
+docker {
+	name "evgeniypnf/${project.name}"
+	dockerfile file('docker/Dockerfile')
+	copySpec.from(jar).rename(".*", "action-service-admitad.jar")
+	buildArgs(['JAR_FILE': "action-service-admitad.jar"])
 }
 
 repositories {
