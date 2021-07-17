@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admitad-service
+  labels:
+    app: admitad-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admitad-service
+  template:
+    metadata:
+      labels:
+        app: admitad-service
+        tier: backend
+    spec:
+      containers:
+        - name: admitad-service
+          image: evgeniypnf/action-service-admitad
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATASOURCE_HOST
+              value: postgres
