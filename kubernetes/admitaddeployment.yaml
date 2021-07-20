@@ -23,3 +23,5 @@ spec:
           env:
             - name: DATASOURCE_HOST
               value: postgres
+            - name: SPRING_ADMIN
+              value: http://spring-admin/spring-admin

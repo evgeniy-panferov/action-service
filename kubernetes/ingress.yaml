@@ -15,10 +15,10 @@ spec:
                 name: admitad-service
                 port:
                   number: 8080
-          - path: /postgres
+          - path: /spring-admin
             pathType: Prefix
             backend:
               service:
-                name: postgres
+                name: spring-admin
                 port:
-                  number: 5432
+                  number: 8080
