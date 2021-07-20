@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,9 +21,11 @@ public class DbRefreshFacade {
     @PostConstruct
     public void dbInit() {
         log.info("DbRefreshFacade dbInit");
-        dataBasePartnerRefresh.dataBaseRefresh();
-        dataBaseActionRefresh.dataBaseRefresh();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(dataBasePartnerRefresh::dataBaseRefresh);
+        executorService.execute(dataBaseActionRefresh::dataBaseRefresh);
         dbRefresh();
+        log.info("DbRefreshFacade run run run");
     }
 
     private void dbRefresh() {
