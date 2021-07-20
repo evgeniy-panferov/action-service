@@ -2,8 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: minimal-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
     - http:
@@ -14,11 +12,13 @@ spec:
               service:
                 name: admitad-service
                 port:
-                  number: 8080
+                  number: 80
+    - http:
+         paths:
           - path: /spring-admin
             pathType: Prefix
             backend:
               service:
                 name: spring-admin
                 port:
-                  number: 8080
+                  number: 80
