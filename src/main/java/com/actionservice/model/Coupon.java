@@ -1,7 +1,10 @@
 package com.actionservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -10,11 +13,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
-public class Action {
+@Getter
+@Setter
+public class Coupon {
 
     @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonProperty(value = "id")
+    @Column(name = "admitad_id")
+    private Long admitadId;
 
     @Column
     private String name;
@@ -23,7 +33,7 @@ public class Action {
     private String status;
 
     @JsonProperty(value = "campaign")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "partner_id")
     @NotFound(action = NotFoundAction.IGNORE)
     private Partner partner;
@@ -31,10 +41,10 @@ public class Action {
     @Column
     private String description;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(
             name = "region",
-            joinColumns = @JoinColumn(name = "action_id")
+            joinColumns = @JoinColumn(name = "coupon_id")
     )
     @Column(name = "name")
     private List<String> regions;
@@ -75,23 +85,7 @@ public class Action {
     @Column
     private LocalDateTime lastUpdate;
 
-    @Override
-    public String toString() {
-        return "Action{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", status='" + status + '\'' +
-                ", description='" + description + '\'' +
-                ", discount='" + discount + '\'' +
-                ", species='" + species + '\'' +
-                ", promocode='" + promocode + '\'' +
-                ", framesetLink='" + framesetLink + '\'' +
-                ", gotoLink='" + gotoLink + '\'' +
-                ", shortName='" + shortName + '\'' +
-                ", dateStart=" + dateStart +
-                ", dateEnd=" + dateEnd +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                '}';
+    public void addPartner(Partner partner){
+        setPartner(partner);
     }
 }

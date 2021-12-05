@@ -1,3 +1,3 @@
-# action-service
+# coupon-service
 
 Action-service for people

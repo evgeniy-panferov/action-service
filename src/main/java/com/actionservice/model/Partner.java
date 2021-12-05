@@ -1,22 +1,38 @@
 package com.actionservice.model;
 
+import com.actionservice.model.dto.Coupons;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
+@NamedEntityGraph(name = "Partner[coupons]", attributeNodes = {
+        @NamedAttributeNode("coupons"),
+        @NamedAttributeNode("categories")
+})
 public class Partner {
 
     @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonProperty(value = "id")
+    @Column(name = "admitad_id")
+    private Long admitadId;
 
     @Column
     private String name;
@@ -26,21 +42,21 @@ public class Partner {
     private String imageUrl;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
     @NotFound(action = NotFoundAction.IGNORE)
-    private List<Action> actions;
+    private List<Coupon> coupons;
 
     @Column
     private LocalDateTime lastUpdate;
 
+    @JsonProperty(value = "categories")
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Category> categories;
 
-    @Override
-    public String toString() {
-        return "Partner{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                '}';
-    }
+    @Column
+    private String description;
+
+    @Column
+    private Boolean exclusive;
+
 }

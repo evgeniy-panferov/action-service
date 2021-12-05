@@ -16,14 +16,14 @@ import java.util.concurrent.TimeUnit;
 public class DbRefreshFacade {
 
     private final DataBasePartnerRefresh dataBasePartnerRefresh;
-    private final DataBaseActionRefresh dataBaseActionRefresh;
+    private final DataBaseCouponRefresh dataBaseCouponRefresh;
 
     @PostConstruct
     public void dbInit() {
         log.info("DbRefreshFacade dbInit");
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(dataBasePartnerRefresh::dataBaseRefresh);
-        executorService.execute(dataBaseActionRefresh::dataBaseRefresh);
+        executorService.execute(dataBaseCouponRefresh::dataBaseRefresh);
         dbRefresh();
         log.info("DbRefreshFacade run run run");
     }
@@ -33,6 +33,6 @@ public class DbRefreshFacade {
         ScheduledExecutorService executor1 = Executors.newScheduledThreadPool(1);
         ScheduledExecutorService executor2 = Executors.newScheduledThreadPool(1);
         executor1.scheduleAtFixedRate(dataBasePartnerRefresh::dataBaseRefresh, 24, 24, TimeUnit.HOURS);
-        executor2.scheduleAtFixedRate(dataBaseActionRefresh::dataBaseRefresh, 32400, 32400, TimeUnit.SECONDS);
+        executor2.scheduleAtFixedRate(dataBaseCouponRefresh::dataBaseRefresh, 32400, 32400, TimeUnit.SECONDS);
     }
 }

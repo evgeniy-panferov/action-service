@@ -5,7 +5,7 @@ create table Partner
     image_url VARCHAR DEFAULT 'PHOTO_NOT_FOUND' NOT NULL
 );
 
-create table Action
+create table Coupon
 (
     id            BIGSERIAL PRIMARY KEY,
     name          VARCHAR(255) NOT NULL,
@@ -25,7 +25,7 @@ create table Action
     region_name   VARCHAR(5) NOT NULL
 );
 
-ALTER TABLE Action
+ALTER TABLE Coupon
     ADD CONSTRAINT partner_id_action_id_fk FOREIGN KEY (partner_id) REFERENCES Partner (id) ON DELETE CASCADE
 
 

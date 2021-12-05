@@ -4,6 +4,6 @@ feign:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/action-service
+    url: jdbc:postgresql://localhost:5432/coupon-service
     username: User
     password: 123

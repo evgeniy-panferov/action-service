@@ -31,7 +31,10 @@ public class PartnerDAOImpl implements PartnerDao {
         log.info("PartnerRepositoryImpl SaveAll - {}", partners);
         partners = partners
                 .stream()
-                .peek(partner -> partner.setLastUpdate(LocalDateTime.now()))
+                .peek(partner -> {
+                    partner.setLastUpdate(LocalDateTime.now());
+                    partner.getCategories().forEach(category -> category.setPartner(partner));
+                })
                 .collect(Collectors.toList());
 
         return crudPartnerRepository.saveAll(partners);
