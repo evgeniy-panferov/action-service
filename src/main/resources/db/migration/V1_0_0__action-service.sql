@@ -1,28 +1,28 @@
 create table Partner
 (
     id        BIGSERIAL PRIMARY KEY,
-    name      VARCHAR(255)                      NOT NULL,
-    image_url VARCHAR DEFAULT 'PHOTO_NOT_FOUND' NOT NULL
+    name      VARCHAR(255)                     ,
+    image_url VARCHAR DEFAULT 'PHOTO_NOT_FOUND'
 );
 
 create table Coupon
 (
     id            BIGSERIAL PRIMARY KEY,
-    name          VARCHAR(255) NOT NULL,
-    status        VARCHAR(255) NOT NULL,
-    partner       VARCHAR(255) NOT NULL,
-    description   VARCHAR(255) NOT NULL,
-    discount      VARCHAR(255) NOT NULL,
-    species       VARCHAR(255) NOT NULL,
-    promocode     VARCHAR(255) NOT NULL,
-    frameset_link VARCHAR(255) NOT NULL,
-    goto_link     VARCHAR(255) NOT NULL,
-    short_name    VARCHAR(255) NOT NULL,
-    date_start    TIMESTAMP    NOT NULL,
-    date_end      TIMESTAMP    NOT NULL,
-    image_url     VARCHAR(255) NOT NULL,
-    partner_id    BIGINT       NOT NULL,
-    region_name   VARCHAR(5) NOT NULL
+    name          VARCHAR(255),
+    status        VARCHAR(255),
+    partner       VARCHAR(255),
+    description   VARCHAR(255),
+    discount      VARCHAR(255),
+    species       VARCHAR(255),
+    promocode     VARCHAR(255),
+    frameset_link VARCHAR(255),
+    goto_link     VARCHAR(255),
+    short_name    VARCHAR(255),
+    date_start    TIMESTAMP   ,
+    date_end      TIMESTAMP   ,
+    image_url     VARCHAR(255),
+    partner_id    BIGINT      ,
+    region_name   VARCHAR(5)
 );
 
 ALTER TABLE Coupon

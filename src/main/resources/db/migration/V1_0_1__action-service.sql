@@ -1,7 +1,7 @@
 CREATE TABLE Region
 (
     id        bigserial,
-    name      VARCHAR(5) NOT NULL,
+    name      VARCHAR(5),
     coupon_id bigint
 );
 

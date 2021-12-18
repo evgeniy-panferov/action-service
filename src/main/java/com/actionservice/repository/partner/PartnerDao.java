@@ -14,4 +14,6 @@ public interface PartnerDao {
 
     List<Partner> saveAll(List<Partner> partners);
 
+    void update(Partner partner, Long id);
+
 }

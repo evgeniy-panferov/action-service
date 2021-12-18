@@ -4,6 +4,7 @@ import com.actionservice.model.Coupon;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class CouponDAOImpl implements CouponDao {
     private final CrudCouponRepository crudCouponRepository;
 
     @Override
+    @Transactional
     public List<Coupon> findAll() {
         log.info("CouponRepositoryImpl findAll");
         return crudCouponRepository.findAll();
@@ -28,6 +30,13 @@ public class CouponDAOImpl implements CouponDao {
 
     @Override
     public Coupon save(Coupon coupon) {
+        log.info("CouponRepositoryImpl save - {}", coupon);
         return crudCouponRepository.save(coupon);
+    }
+
+    @Override
+    public void update(Coupon coupon, Long id) {
+        crudCouponRepository.update(coupon,id);
+        log.info("CouponRepositoryImpl update by Id - {} , - {}", coupon, id);
     }
 }
