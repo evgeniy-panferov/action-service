@@ -18,11 +18,13 @@ public class PartnerDAOImpl implements PartnerDao {
 
     @Override
     public List<Partner> findAll() {
+        log.info("PartnerRepositoryImpl saveAll");
         return crudPartnerRepository.findAll();
     }
 
     @Override
     public Partner save(Partner partner) {
+        log.info("PartnerRepositoryImpl save - {}", partner);
         return crudPartnerRepository.save(partner);
     }
 
@@ -38,5 +40,11 @@ public class PartnerDAOImpl implements PartnerDao {
                 .collect(Collectors.toList());
 
         return crudPartnerRepository.saveAll(partners);
+    }
+
+    @Override
+    public void update(Partner partner, Long id) {
+        log.info("PartnerRepositoryImpl update partner - {}, id - {}", partner, id);
+        crudPartnerRepository.update(partner, id);
     }
 }

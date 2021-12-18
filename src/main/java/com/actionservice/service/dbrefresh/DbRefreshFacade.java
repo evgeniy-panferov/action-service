@@ -1,38 +1,51 @@
 package com.actionservice.service.dbrefresh;
 
-import lombok.AllArgsConstructor;
+import com.actionservice.service.coupons.CouponService;
+import com.actionservice.service.partners.PartnerService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DbRefreshFacade {
 
-    private final DataBasePartnerRefresh dataBasePartnerRefresh;
-    private final DataBaseCouponRefresh dataBaseCouponRefresh;
+    private static final int POOL_SIZE = 1;
+    private static final String PREFIX_SCHEDULER = "DbRefreshFacade";
+    private static final int AWAIT_TERMINATION_SEC = 180;
+    private static final String PARTNER_CRON = "0 0 1 * * *";
+    private static final String COUPON_CRON = "0 0 /4 * * *";
+//    Only Test cron
+//    private static final String PARTNER_CRON = "10 * * * * *";
+//    private static final String COUPON_CRON = "20 * * * * *";
+
+    private final PartnerService partnerService;
+    private final CouponService couponService;
+    private ThreadPoolTaskScheduler scheduler;
 
     @PostConstruct
     public void dbInit() {
         log.info("DbRefreshFacade dbInit");
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.execute(dataBasePartnerRefresh::dataBaseRefresh);
-        executorService.execute(dataBaseCouponRefresh::dataBaseRefresh);
+        scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(POOL_SIZE);
+        scheduler.setThreadNamePrefix(PREFIX_SCHEDULER);
+        scheduler.setWaitForTasksToCompleteOnShutdown(true);
+        scheduler.setAwaitTerminationSeconds(AWAIT_TERMINATION_SEC);
+        scheduler.initialize();
         dbRefresh();
         log.info("DbRefreshFacade run run run");
     }
 
     private void dbRefresh() {
         log.info("DbRefreshFacade dbRefresh");
-        ScheduledExecutorService executor1 = Executors.newScheduledThreadPool(1);
-        ScheduledExecutorService executor2 = Executors.newScheduledThreadPool(1);
-        executor1.scheduleAtFixedRate(dataBasePartnerRefresh::dataBaseRefresh, 24, 24, TimeUnit.HOURS);
-        executor2.scheduleAtFixedRate(dataBaseCouponRefresh::dataBaseRefresh, 32400, 32400, TimeUnit.SECONDS);
+        var partnerCron = new CronTrigger(PARTNER_CRON);
+        var couponCron = new CronTrigger(COUPON_CRON);
+        scheduler.schedule(partnerService::partnerUpdate, partnerCron);
+        scheduler.schedule(couponService::couponUpdate, couponCron);
     }
 }

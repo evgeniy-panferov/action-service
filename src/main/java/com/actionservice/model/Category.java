@@ -1,13 +1,16 @@
 package com.actionservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@Getter
+@Setter
 public class Category {
 
     @Id
@@ -22,8 +25,9 @@ public class Category {
 
     private String language;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "partner_id")
+    @JsonBackReference
     private Partner partner;
 
 }

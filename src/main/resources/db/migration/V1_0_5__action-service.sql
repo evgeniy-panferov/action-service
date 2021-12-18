@@ -2,7 +2,7 @@ alter table partner add column description varchar;
 alter table partner add column exclusive boolean;
 
 create table Category(
-    id bigserial,
+    id BIGSERIAL PRIMARY KEY,
     name varchar,
     admitad_id varchar,
     language varchar,

@@ -13,4 +13,6 @@ public interface CouponDao {
     List<Coupon> saveAll(List<Coupon> coupons);
 
     Coupon save(Coupon coupon);
+
+    void update(Coupon coupon, Long id);
 }

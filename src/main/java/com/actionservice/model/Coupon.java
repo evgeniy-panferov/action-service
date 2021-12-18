@@ -1,8 +1,6 @@
 package com.actionservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
@@ -15,6 +13,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NamedEntityGraph(name = "Coupon[regions]", attributeNodes = {
+        @NamedAttributeNode("regions")
+})
 public class Coupon {
 
     @Id
@@ -33,15 +34,15 @@ public class Coupon {
     private String status;
 
     @JsonProperty(value = "campaign")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "partner_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @NotFound(action = NotFoundAction.IGNORE)
+    @JsonBackReference
     private Partner partner;
 
     @Column
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name = "region",
             joinColumns = @JoinColumn(name = "coupon_id")
@@ -85,7 +86,4 @@ public class Coupon {
     @Column
     private LocalDateTime lastUpdate;
 
-    public void addPartner(Partner partner){
-        setPartner(partner);
-    }
 }

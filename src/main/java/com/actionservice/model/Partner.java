@@ -1,17 +1,14 @@
 package com.actionservice.model;
 
-import com.actionservice.model.dto.Coupons;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -41,16 +38,16 @@ public class Partner {
     @JsonProperty(value = "image")
     private String imageUrl;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToMany(mappedBy = "partner", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @JsonManagedReference
     private List<Coupon> coupons;
 
     @Column
     private LocalDateTime lastUpdate;
 
     @JsonProperty(value = "categories")
-    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Category> categories;
 
     @Column
