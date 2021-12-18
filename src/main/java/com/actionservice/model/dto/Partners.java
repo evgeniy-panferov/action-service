@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Programs {
+public class Partners {
 
     @JsonProperty(value = "results")
     private List<Partner> partners;

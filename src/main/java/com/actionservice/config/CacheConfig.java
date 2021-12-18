@@ -13,7 +13,7 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager("tokenCache");
+        CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager("tokenCache", "websiteIds");
         caffeineCacheManager.setCaffeine(Caffeine
                 .newBuilder()
                 .maximumSize(5)
