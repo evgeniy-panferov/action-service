@@ -19,7 +19,7 @@ public class DbRefreshFacade {
     private static final String PREFIX_SCHEDULER = "DbRefreshFacade";
     private static final int AWAIT_TERMINATION_SEC = 180;
     private static final String PARTNER_CRON = "0 0 1 * * *";
-    private static final String COUPON_CRON = "0 0 /4 * * *";
+    private static final String COUPON_CRON = "0 0 */4 * * *";
 //    Only Test cron
 //    private static final String PARTNER_CRON = "10 * * * * *";
 //    private static final String COUPON_CRON = "20 * * * * *";

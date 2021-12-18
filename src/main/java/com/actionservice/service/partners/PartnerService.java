@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class PartnerService {
         changedPartnerId.forEach(id -> {
             Partner partnerDb = partnerByIdBd.get(id);
             Partner partnerAdm = partnerByIdAdm.get(id);
-//            partnerAdm.addCategories(partnerAdm.getCategories());
+            partnerAdm.setLastUpdate(LocalDateTime.now());
             if (partnerDb != null) {
                 log.info("Update partner by id - {}, partner - {}", id, partnerDb);
                 partnerAdm.setId(partnerDb.getId());

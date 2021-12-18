@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +51,9 @@ public class CouponService {
                 {
                     Coupon couponFromDb = couponByIdDb.get(id);
                     Coupon couponFromAdm = couponByIdAdm.get(id);
-                    Long partnerAdmitadId = couponFromAdm.getPartner().getAdmitadId();
 
+                    Long partnerAdmitadId = couponFromAdm.getPartner().getAdmitadId();
+                    couponFromAdm.setLastUpdate(LocalDateTime.now());
                     if (couponFromDb != null) {
                         couponFromAdm.setId(couponFromDb.getId());
                         couponFromAdm.setPartner(partnerByIdDb.get(partnerAdmitadId));
@@ -59,7 +61,7 @@ public class CouponService {
                         log.info("Update coupon by id - {}, coupon - {}", id, couponByIdAdm);
                     } else {
                         log.info("Save coupon by id - {}, coupon - {}", id, couponByIdAdm);
-                       couponFromAdm.setPartner(partnerByIdDb.get(partnerAdmitadId));
+                        couponFromAdm.setPartner(partnerByIdDb.get(partnerAdmitadId));
                         couponRepository.save(couponFromAdm);
                     }
                 }

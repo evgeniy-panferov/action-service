@@ -1,8 +1,8 @@
 ALTER TABLE partner
-    ADD COLUMN last_update TIMESTAMP DEFAULT(now());
+    ADD COLUMN last_update TIMESTAMP;
 
 ALTER TABLE coupon
-    ADD COLUMN last_update TIMESTAMP DEFAULT(now());
+    ADD COLUMN last_update TIMESTAMP;
 
 ALTER TABLE coupon ALTER COLUMN description TYPE VARCHAR(20000);
 
