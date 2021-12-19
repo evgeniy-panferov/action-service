@@ -1,7 +1,5 @@
 package com.actionservice.http;
 
-import com.actionservice.model.Category;
-import com.actionservice.model.Coupon;
 import com.actionservice.model.dto.CategoryDto;
 import com.actionservice.repository.category.CategoryDaoImpl;
 import com.actionservice.util.CategoryUtil;

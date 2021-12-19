@@ -16,4 +16,6 @@ public interface PartnerDao {
 
     void update(Partner partner, Long id);
 
+    List<Partner> findByCategoryId(Long admitadId);
+
 }

@@ -17,8 +17,8 @@ public class CouponCtrl {
 
     private final CouponDAOImpl couponDAO;
 
-    @GetMapping("partner/{id}")
-    public List<Coupon> getCouponsByPartnerId(@PathVariable Long id){
-        return couponDAO.findCouponByPartnerId(id);
+    @GetMapping("/{partnerId}")
+    public List<Coupon> getCouponsByPartnerId(@PathVariable Long partnerId){
+        return couponDAO.findCouponByPartnerId(partnerId);
     }
 }

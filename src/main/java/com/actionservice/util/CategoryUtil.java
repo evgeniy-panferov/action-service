@@ -13,7 +13,7 @@ public class CategoryUtil {
 
     public static CategoryDto toDto(Category category) {
         CategoryDto dto = new CategoryDto();
-        dto.setId(category.getId());
+        dto.setAdmitadId(category.getAdmitadId());
         dto.setName(category.getName());
         dto.setLanguage(category.getLanguage());
         return dto;

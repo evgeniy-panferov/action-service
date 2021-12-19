@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -20,4 +21,8 @@ public interface CrudPartnerRepository extends JpaRepository<Partner, Long> {
     @Query("update Partner p set p = :partner where p.admitadId = :id")
     @Transactional
     void update(Partner partner, Long id);
+
+    @Query("select e from Category c left join c.partner e where c.admitadId = :admitadId")
+    List<Partner> findByCategoryId(@Param("admitadId") Long admitadId);
+
 }

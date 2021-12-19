@@ -7,12 +7,11 @@ import lombok.Setter;
 @Setter
 public class CategoryDto {
 
-    private Long id;
+    private Long admitadId;
 
     private String name;
 
     private String language;
-
 
     @Override
     public boolean equals(Object o) {
@@ -21,11 +20,11 @@ public class CategoryDto {
 
         CategoryDto that = (CategoryDto) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return admitadId != null ? admitadId.equals(that.admitadId) : that.admitadId == null;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return admitadId != null ? admitadId.hashCode() : 0;
     }
 }
