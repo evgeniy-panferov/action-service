@@ -17,8 +17,8 @@ configurations {
 docker {
 	name "evgeniypnf/${project.name}"
 	dockerfile file('docker/Dockerfile')
-	copySpec.from(jar).rename(".*", "action-service-admitad.jar")
-	buildArgs(['JAR_FILE': "action-service-admitad.jar"])
+	copySpec.from(jar).rename(".*", "discount-service.jar")
+	buildArgs(['JAR_FILE': "discount-service.jar"])
 }
 
 repositories {
