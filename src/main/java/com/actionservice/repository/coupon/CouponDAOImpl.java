@@ -29,6 +29,12 @@ public class CouponDAOImpl implements CouponDao {
     }
 
     @Override
+    public List<Coupon> findCouponByPartnerId(Long partnerId) {
+        log.info("CouponRepositoryImpl findCouponByPartnerId - {}", partnerId);
+        return crudCouponRepository.findCouponByPartnerId(partnerId);
+    }
+
+    @Override
     public Coupon save(Coupon coupon) {
         log.info("CouponRepositoryImpl save - {}", coupon);
         return crudCouponRepository.save(coupon);
