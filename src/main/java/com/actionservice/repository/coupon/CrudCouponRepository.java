@@ -19,4 +19,7 @@ public interface CrudCouponRepository extends JpaRepository<Coupon, Long> {
 
     @Query("select c from Coupon c where c.partner.id = :partnerId")
     List<Coupon> findCouponByPartnerId(Long partnerId);
+
+//    @Query("select c from Coupon c where c.partner.categories. =")
+//    List<Coupon> findCouponByCategoryId(Long partnerId);
 }

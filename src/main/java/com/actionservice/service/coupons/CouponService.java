@@ -58,9 +58,9 @@ public class CouponService {
                         couponFromAdm.setId(couponFromDb.getId());
                         couponFromAdm.setPartner(partnerByIdDb.get(partnerAdmitadId));
                         couponRepository.update(couponFromAdm, id);
-                        log.info("Update coupon by id - {}, coupon - {}", id, couponByIdAdm);
+                        log.info("Update coupon by id - {}, coupon - {}, partnerId - {}", id, couponByIdAdm, couponFromAdm.getPartner().getId());
                     } else {
-                        log.info("Save coupon by id - {}, coupon - {}", id, couponByIdAdm);
+                        log.info("Save coupon by id - {}, coupon - {}, partnerId - {}", id, couponByIdAdm, couponFromAdm.getPartner().getId());
                         couponFromAdm.setPartner(partnerByIdDb.get(partnerAdmitadId));
                         couponRepository.save(couponFromAdm);
                     }

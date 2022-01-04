@@ -1,7 +1,7 @@
 package com.actionservice.util;
 
 import com.actionservice.model.Category;
-import com.actionservice.model.dto.CategoryDto;
+import com.actionservice.model.dto.telegram.CategoryDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

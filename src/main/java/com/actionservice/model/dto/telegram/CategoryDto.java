@@ -1,4 +1,4 @@
-package com.actionservice.model.dto;
+package com.actionservice.model.dto.telegram;
 
 import lombok.Getter;
 import lombok.Setter;

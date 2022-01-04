@@ -17,4 +17,6 @@ public interface CouponDao {
     Coupon save(Coupon coupon);
 
     void update(Coupon coupon, Long id);
+
+//    List<Coupon> findCouponByCategoryId(Long categoryId);
 }

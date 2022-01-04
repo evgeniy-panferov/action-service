@@ -1,6 +1,6 @@
 package com.actionservice.http;
 
-import com.actionservice.model.dto.CategoryDto;
+import com.actionservice.model.dto.telegram.CategoryDto;
 import com.actionservice.repository.category.CategoryDaoImpl;
 import com.actionservice.util.CategoryUtil;
 import lombok.RequiredArgsConstructor;

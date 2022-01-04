@@ -42,7 +42,13 @@ public class CouponDAOImpl implements CouponDao {
 
     @Override
     public void update(Coupon coupon, Long id) {
-        crudCouponRepository.update(coupon,id);
+        crudCouponRepository.update(coupon, id);
         log.info("CouponRepositoryImpl update by Id - {} , - {}", coupon, id);
     }
+
+//    @Override
+//    public List<Coupon> findCouponByCategoryId(Long categoryId) {
+//        log.info("CouponRepositoryImpl findCouponByCategoryId by Id - {}", categoryId);
+//        return crudCouponRepository.findByCategoryId();
+//    }
 }
