@@ -2,10 +2,13 @@ package com.actionservice.util;
 
 import com.actionservice.model.Partner;
 import com.actionservice.model.dto.telegram.PartnerDto;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PartnerUtil {
 
     public static List<PartnerDto> toDtos(List<Partner> partners) {
@@ -24,15 +27,16 @@ public class PartnerUtil {
 
         dto.setImageUrl(partner.getImageUrl());
 
-        dto.setCoupons(partner.getCoupons());
+        dto.setCoupons(CouponUtil.toDtosAndSetPartner(partner.getCoupons(), dto));
 
         dto.setLastUpdate(partner.getLastUpdate());
 
-        dto.setCategories(partner.getCategories());
+        dto.setCategories(CategoryUtil.toDtos(partner.getCategories()));
 
         dto.setDescription(partner.getDescription());
 
         dto.setExclusive(partner.getExclusive());
+
         return dto;
     }
 

@@ -1,7 +1,6 @@
 package com.actionservice.http;
 
 
-import com.actionservice.model.Partner;
 import com.actionservice.model.dto.telegram.PartnerDto;
 import com.actionservice.repository.partner.PartnerDAOImpl;
 import com.actionservice.util.PartnerUtil;
@@ -21,8 +20,8 @@ public class PartnerCtrl {
     private final PartnerDAOImpl partnerDAO;
 
     @GetMapping
-    public List<Partner> getAll() {
-        return partnerDAO.findAll();
+    public List<PartnerDto> getAll() {
+        return PartnerUtil.toDtos(partnerDAO.findAll());
     }
 
     @GetMapping("/{categoryId}")

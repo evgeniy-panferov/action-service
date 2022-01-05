@@ -1,5 +1,6 @@
 package com.actionservice.model.dto.telegram;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,9 @@ public class CategoryDto {
     private String name;
 
     private String language;
+
+    @JsonBackReference
+    private PartnerDto partner;
 
     @Override
     public boolean equals(Object o) {

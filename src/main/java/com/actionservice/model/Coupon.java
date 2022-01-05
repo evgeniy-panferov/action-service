@@ -3,6 +3,7 @@ package com.actionservice.model;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -13,8 +14,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NamedEntityGraph(name = "Coupon[regions]", attributeNodes = {
-        @NamedAttributeNode("regions")
+@NamedEntityGraph(name = "Coupon[regions, partner]", attributeNodes = {
+        @NamedAttributeNode("regions"),
+        @NamedAttributeNode("partner")
 })
 public class Coupon {
 
@@ -42,6 +44,7 @@ public class Coupon {
     @Column
     private String description;
 
+    @BatchSize(size = 100)
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name = "region",

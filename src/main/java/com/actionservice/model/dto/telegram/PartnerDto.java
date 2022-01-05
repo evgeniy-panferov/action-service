@@ -1,7 +1,6 @@
 package com.actionservice.model.dto.telegram;
 
-import com.actionservice.model.Category;
-import com.actionservice.model.Coupon;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,11 +21,13 @@ public class PartnerDto {
 
     private String imageUrl;
 
-    private List<Coupon> coupons;
+    @JsonManagedReference
+    private List<CouponDto> coupons;
 
     private LocalDateTime lastUpdate;
 
-    private Set<Category> categories;
+    @JsonManagedReference
+    private Set<CategoryDto> categories;
 
     private String description;
 

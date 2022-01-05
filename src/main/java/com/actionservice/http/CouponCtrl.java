@@ -1,6 +1,5 @@
 package com.actionservice.http;
 
-import com.actionservice.model.Coupon;
 import com.actionservice.model.dto.telegram.CouponDto;
 import com.actionservice.repository.coupon.CouponDAOImpl;
 import com.actionservice.util.CouponUtil;
@@ -21,7 +20,7 @@ public class CouponCtrl {
 
     @GetMapping("/{partnerId}")
     public List<CouponDto> getCouponsByPartnerId(@PathVariable Long partnerId) {
-        return CouponUtil.toDtoS(couponDAO.findCouponByPartnerId(partnerId));
+        return CouponUtil.toDtos(couponDAO.findCouponByPartnerId(partnerId));
     }
 
     //TODO findBycouponCategory

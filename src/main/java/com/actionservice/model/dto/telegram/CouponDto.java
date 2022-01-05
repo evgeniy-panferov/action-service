@@ -1,6 +1,6 @@
 package com.actionservice.model.dto.telegram;
 
-import com.actionservice.model.Partner;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +19,8 @@ public class CouponDto {
 
     private String status;
 
-    private Partner partner;
+    @JsonBackReference
+    private PartnerDto partner;
 
     private String description;
 
