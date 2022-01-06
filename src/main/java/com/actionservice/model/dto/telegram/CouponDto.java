@@ -1,6 +1,7 @@
 package com.actionservice.model.dto.telegram;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
 public class CouponDto {
 
     private Long id;
@@ -19,7 +21,6 @@ public class CouponDto {
 
     private String status;
 
-    @JsonBackReference
     private PartnerDto partner;
 
     private String description;

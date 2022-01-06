@@ -14,7 +14,7 @@ public class CategoryDto {
 
     private String language;
 
-    @JsonBackReference
+    @JsonBackReference("categories")
     private PartnerDto partner;
 
     @Override

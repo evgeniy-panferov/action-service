@@ -5,6 +5,7 @@ import com.actionservice.model.dto.telegram.PartnerDto;
 import com.actionservice.repository.partner.PartnerDAOImpl;
 import com.actionservice.util.PartnerUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class PartnerCtrl {
         return PartnerUtil.toDtos(partnerDAO.findAll());
     }
 
-    @GetMapping("/{categoryId}")
+    @GetMapping(value = "/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PartnerDto> getPartnerByCategoryId(@PathVariable Long categoryId) {
         return PartnerUtil.toDtos(partnerDAO.findByCategoryId(categoryId));
     }
