@@ -4,6 +4,7 @@ import com.actionservice.model.dto.telegram.CouponDto;
 import com.actionservice.repository.coupon.CouponDAOImpl;
 import com.actionservice.util.CouponUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/coupons")
 @RequiredArgsConstructor
@@ -20,7 +22,14 @@ public class CouponCtrl {
 
     @GetMapping("/{partnerId}")
     public List<CouponDto> getCouponsByPartnerId(@PathVariable Long partnerId) {
+        log.info("CouponCtrl getCouponsByPartnerId, partnerId - {}", partnerId);
         return CouponUtil.toDtos(couponDAO.findCouponByPartnerId(partnerId));
+    }
+
+    @GetMapping
+    public List<CouponDto> getCoupons() {
+        log.info("CouponCtrl getCouponsByPartnerId");
+        return CouponUtil.toDtos(couponDAO.findAll());
     }
 
     //TODO findBycouponCategory

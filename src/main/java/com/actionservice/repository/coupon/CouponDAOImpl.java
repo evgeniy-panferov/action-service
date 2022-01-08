@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
@@ -19,7 +20,10 @@ public class CouponDAOImpl implements CouponDao {
     @Transactional
     public List<Coupon> findAll() {
         log.info("CouponRepositoryImpl findAll");
-        return crudCouponRepository.findAll();
+        //TODO distinct can delete
+        return crudCouponRepository.findAll().stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -31,7 +35,10 @@ public class CouponDAOImpl implements CouponDao {
     @Override
     public List<Coupon> findCouponByPartnerId(Long partnerId) {
         log.info("CouponRepositoryImpl findCouponByPartnerId - {}", partnerId);
-        return crudCouponRepository.findCouponByPartnerId(partnerId);
+        //TODO distinct can delete
+        return crudCouponRepository.findCouponByPartnerId(partnerId).stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -49,6 +56,9 @@ public class CouponDAOImpl implements CouponDao {
 //    @Override
 //    public List<Coupon> findCouponByCategoryId(Long categoryId) {
 //        log.info("CouponRepositoryImpl findCouponByCategoryId by Id - {}", categoryId);
-//        return crudCouponRepository.findByCategoryId();
+    //TODO distinct can delete
+//        return crudCouponRepository.findByCategoryId().stream()
+//                .distinct()
+//                .collect(Collectors.toList());
 //    }
 }

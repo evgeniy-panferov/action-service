@@ -1,6 +1,5 @@
 package com.actionservice.repository.partner;
 
-import com.actionservice.model.Category;
 import com.actionservice.model.Partner;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,10 @@ public class PartnerDAOImpl implements PartnerDao {
     @Override
     public List<Partner> findAll() {
         log.info("PartnerRepositoryImpl saveAll");
-        return crudPartnerRepository.findAll();
+        //TODO distinct can delete
+        return crudPartnerRepository.findAll().stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -52,6 +54,9 @@ public class PartnerDAOImpl implements PartnerDao {
     @Override
     public List<Partner> findByCategoryId(Long admitadId) {
         log.info("PartnerDAOImpl findByAdmitadId - {}", admitadId);
-       return crudPartnerRepository.findByCategoryId(admitadId);
+        //TODO distinct can delete
+        return crudPartnerRepository.findByCategoryId(admitadId).stream()
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

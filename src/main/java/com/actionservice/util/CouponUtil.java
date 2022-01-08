@@ -47,11 +47,13 @@ public class CouponUtil {
 
     public static List<CouponDto> toDtosAndSetPartner(List<Coupon> coupons, PartnerDto partner) {
 
-        return coupons.stream().map(coupon -> {
-            CouponDto couponDto = toDto(coupon);
-            couponDto.setPartner(partner);
-            return couponDto;
-        })
+        return coupons.stream()
+                .distinct()
+                .map(coupon -> {
+                    CouponDto couponDto = toDto(coupon);
+                    couponDto.setPartner(partner);
+                    return couponDto;
+                })
                 .collect(Collectors.toList());
     }
 }

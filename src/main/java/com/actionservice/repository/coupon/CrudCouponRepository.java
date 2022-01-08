@@ -13,6 +13,10 @@ import java.util.List;
 @Repository
 public interface CrudCouponRepository extends JpaRepository<Coupon, Long> {
 
+    @EntityGraph(value = "Coupon[regions, partner]")
+    @Query("select c from Coupon c")
+    List<Coupon> findAll();
+
     @Modifying
     @Transactional
     @Query("update Coupon c set c = :coupon where c.admitadId = :id")
