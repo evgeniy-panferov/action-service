@@ -1,0 +1,23 @@
+feign:
+  name: admitad
+  url: https://api.admitad.com/
+
+spring:
+  application:
+    name: discount-service
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        search:
+          backend:
+            directory:
+              type: local-filesystem
+              root: ${user.dir}\src\main\resources\index\
+        format_sql: true
+server:
+  port: 8081

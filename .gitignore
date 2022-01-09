@@ -41,3 +41,4 @@ out/
 **/src/main/resources/Response.json
 **/src/main/resources/responseresource.json
 **/src/main/resources/application.yaml
+/src/main/resources/index/

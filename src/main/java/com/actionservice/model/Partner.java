@@ -5,12 +5,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.search.engine.backend.types.TermVector;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+@Indexed
 @Getter
 @Setter
 @Entity
@@ -30,6 +34,7 @@ public class Partner {
     private Long admitadId;
 
     @Column
+    @FullTextField(termVector = TermVector.YES)
     private String name;
 
     @Column
@@ -49,6 +54,7 @@ public class Partner {
     private Set<Category> categories;
 
     @Column
+    @FullTextField(termVector = TermVector.YES)
     private String description;
 
     @Column

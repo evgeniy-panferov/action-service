@@ -6,11 +6,16 @@ import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.search.engine.backend.types.TermVector;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Indexed
 @Entity
 @Getter
 @Setter
@@ -30,6 +35,7 @@ public class Coupon {
     private Long admitadId;
 
     @Column
+    @FullTextField(termVector = TermVector.YES)
     private String name;
 
     @Column
@@ -42,6 +48,7 @@ public class Coupon {
     private Partner partner;
 
     @Column
+    @FullTextField(termVector = TermVector.YES)
     private String description;
 
     @BatchSize(size = 100)
@@ -72,6 +79,7 @@ public class Coupon {
 
     @Column
     @JsonProperty(value = "short_name")
+    @FullTextField(termVector = TermVector.YES)
     private String shortName;
 
     @Column
@@ -80,6 +88,7 @@ public class Coupon {
 
     @Column
     @JsonProperty(value = "date_end")
+    @GenericField
     private LocalDateTime dateEnd;
 
     @Column
