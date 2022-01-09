@@ -21,8 +21,8 @@ public class DbRefreshFacade {
     private static final String PARTNER_CRON = "0 0 1 * * *";
     private static final String COUPON_CRON = "0 0 */4 * * *";
 //    Only Test cron
-//    private static final String PARTNER_CRON = "10 * * * * *";
-//    private static final String COUPON_CRON = "20 * * * * *";
+//    private static final String PARTNER_CRON = "*/10 * * * * *";
+//    private static final String COUPON_CRON = "*/20 * * * * *";
 
     private final PartnerService partnerService;
     private final CouponService couponService;

@@ -31,7 +31,7 @@ public class CouponService {
 
     @Transactional
     public void couponUpdate() {
-
+        log.info("Start coupon DB update");
         Map<Long, Partner> partnerByIdDb = partnerRepository.findAll().stream()
                 .collect(Collectors.toMap(Partner::getAdmitadId, Function.identity()));
 
@@ -70,7 +70,6 @@ public class CouponService {
 
     private List<Coupon> fromAdmitad(Long id) {
         return admitadContentClient.couponsForSite(
-                webmasterWebsiteService.getWebsiteId("YouPromocodeBot"),
-                id).getCoupons();
+                webmasterWebsiteService.getWebsiteId("YouPromocodeBot"), id).getCoupons();
     }
 }

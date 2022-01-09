@@ -5,6 +5,8 @@ import com.actionservice.repository.coupon.CouponDAOImpl;
 import com.actionservice.util.CouponUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +23,15 @@ public class CouponCtrl {
     private final CouponDAOImpl couponDAO;
 
     @GetMapping("/{partnerId}")
-    public List<CouponDto> getCouponsByPartnerId(@PathVariable Long partnerId) {
+    public ResponseEntity<List<CouponDto>> getCouponsByPartnerId(@PathVariable Long partnerId) {
         log.info("CouponCtrl getCouponsByPartnerId, partnerId - {}", partnerId);
-        return CouponUtil.toDtos(couponDAO.findCouponByPartnerId(partnerId));
+        return new ResponseEntity<>(CouponUtil.toDtos(couponDAO.findCouponByPartnerId(partnerId)), HttpStatus.OK);
     }
 
     @GetMapping
-    public List<CouponDto> getCoupons() {
+    public ResponseEntity<List<CouponDto>> getCoupons() {
         log.info("CouponCtrl getCouponsByPartnerId");
-        return CouponUtil.toDtos(couponDAO.findAll());
+        return new ResponseEntity<>(CouponUtil.toDtos(couponDAO.findAll()), HttpStatus.OK);
     }
 
     //TODO findBycouponCategory

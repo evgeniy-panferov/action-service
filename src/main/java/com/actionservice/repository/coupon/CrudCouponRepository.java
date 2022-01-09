@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -25,4 +26,10 @@ public interface CrudCouponRepository extends JpaRepository<Coupon, Long> {
     @EntityGraph(value = "Coupon[regions, partner]")
     @Query("select c from Coupon c where c.partner.id = :partnerId")
     List<Coupon> findCouponByPartnerId(Long partnerId);
+
+    @Modifying
+    @Transactional
+    @Query("delete from Coupon c where c.dateEnd < :dateTime")
+    void deleteOverdueCoupon(LocalDateTime dateTime);
+
 }

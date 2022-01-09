@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class CouponDAOImpl implements CouponDao {
     @Transactional
     public List<Coupon> findAll() {
         log.info("CouponRepositoryImpl findAll");
-        //TODO distinct can delete
+        //TODO distinct can be delete
         return crudCouponRepository.findAll().stream()
                 .distinct()
                 .collect(Collectors.toList());
@@ -35,7 +36,7 @@ public class CouponDAOImpl implements CouponDao {
     @Override
     public List<Coupon> findCouponByPartnerId(Long partnerId) {
         log.info("CouponRepositoryImpl findCouponByPartnerId - {}", partnerId);
-        //TODO distinct can delete
+        //TODO distinct can be delete
         return crudCouponRepository.findCouponByPartnerId(partnerId).stream()
                 .distinct()
                 .collect(Collectors.toList());
@@ -53,12 +54,9 @@ public class CouponDAOImpl implements CouponDao {
         log.info("CouponRepositoryImpl update by Id - {} , - {}", coupon, id);
     }
 
-//    @Override
-//    public List<Coupon> findCouponByCategoryId(Long categoryId) {
-//        log.info("CouponRepositoryImpl findCouponByCategoryId by Id - {}", categoryId);
-    //TODO distinct can delete
-//        return crudCouponRepository.findByCategoryId().stream()
-//                .distinct()
-//                .collect(Collectors.toList());
-//    }
+    @Override
+    public void deleteOverdueCoupon(LocalDateTime dateTime) {
+        log.info("CouponRepositoryImpl deleteOverdueCoupon time - {}", dateTime);
+        crudCouponRepository.deleteOverdueCoupon(dateTime);
+    }
 }

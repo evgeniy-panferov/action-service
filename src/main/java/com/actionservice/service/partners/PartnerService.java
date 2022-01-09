@@ -28,7 +28,7 @@ public class PartnerService {
 
     @Transactional
     public void partnerUpdate() {
-
+        log.info("Start partner DB update");
         List<Partner> partnersAdmitad = admitadContentClient.partnerForSite(
                 webmasterWebsiteService.getWebsiteId("YouPromocodeBot")).getPartners();
 

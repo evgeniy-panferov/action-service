@@ -3,6 +3,7 @@ package com.actionservice.repository.coupon;
 import com.actionservice.model.Coupon;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -18,5 +19,5 @@ public interface CouponDao {
 
     void update(Coupon coupon, Long id);
 
-//    List<Coupon> findCouponByCategoryId(Long categoryId);
+    void deleteOverdueCoupon(LocalDateTime dateTime);
 }
