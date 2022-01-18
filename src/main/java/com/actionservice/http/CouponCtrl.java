@@ -2,6 +2,7 @@ package com.actionservice.http;
 
 import com.actionservice.model.dto.telegram.CouponDto;
 import com.actionservice.repository.coupon.CouponDAOImpl;
+import com.actionservice.service.fulltextsearch.CouponFullTextSearchService;
 import com.actionservice.util.CouponUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.List;
 public class CouponCtrl {
 
     private final CouponDAOImpl couponDAO;
+    private final CouponFullTextSearchService searchService;
 
     @GetMapping("/{partnerId}")
     public ResponseEntity<List<CouponDto>> getCouponsByPartnerId(@PathVariable Long partnerId) {
@@ -34,9 +36,8 @@ public class CouponCtrl {
         return new ResponseEntity<>(CouponUtil.toDtos(couponDAO.findAll()), HttpStatus.OK);
     }
 
-    //TODO findBycouponCategory
-//    @GetMapping("/{categoryId}")
-//    public List<Coupon> getCouponByCategoryId(@PathVariable Long categoryId){
-//        return couponDAO.findCouponByCategoryId(categoryId);
-//    }
+    @GetMapping("/search")
+    public ResponseEntity<List<CouponDto>> findCouponByString(String searchString) {
+        return new ResponseEntity<>(CouponUtil.toDtos(searchService.search(searchString)), HttpStatus.OK);
+    }
 }

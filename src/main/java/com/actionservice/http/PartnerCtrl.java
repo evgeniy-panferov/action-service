@@ -3,6 +3,7 @@ package com.actionservice.http;
 
 import com.actionservice.model.dto.telegram.PartnerDto;
 import com.actionservice.repository.partner.PartnerDAOImpl;
+import com.actionservice.service.fulltextsearch.PartnerFullTextSearchService;
 import com.actionservice.util.PartnerUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.List;
 public class PartnerCtrl {
 
     private final PartnerDAOImpl partnerDAO;
+    private final PartnerFullTextSearchService searchService;
 
     @GetMapping
     public List<PartnerDto> getAll() {
@@ -31,4 +33,10 @@ public class PartnerCtrl {
     public ResponseEntity<List<PartnerDto>> getPartnerByCategoryId(@PathVariable Long categoryId) {
         return new ResponseEntity<>(PartnerUtil.toDtos(partnerDAO.findByCategoryId(categoryId)), HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<PartnerDto>> findCouponByString(String searchString) {
+        return new ResponseEntity<>(PartnerUtil.toDtos(searchService.search(searchString)), HttpStatus.OK);
+    }
+
 }

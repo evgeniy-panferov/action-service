@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class IndexLuceneCreator {
-
 
     private final EntityManager entityManager;
 
@@ -33,14 +34,27 @@ public class IndexLuceneCreator {
         SearchSession searchSession = Search.session(entityManager);
         MassIndexer couponIndexer = searchSession.massIndexer(Coupon.class);
         MassIndexer partnerIndexer = searchSession.massIndexer(Partner.class);
-        try {
-            couponIndexer.startAndWait();
-            partnerIndexer.startAndWait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            log.error("An error has occurred, cause - {}, message - {}", e.getCause(), e.getMessage());
-        }
+        ExecutorService couponThread = Executors.newSingleThreadExecutor();
+        ExecutorService partnerThread = Executors.newSingleThreadExecutor();
 
+
+        couponThread.execute(() -> {
+            try {
+                couponIndexer.startAndWait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                log.error("CouponThread - an error has occurred, cause - {}, message - {}", e.getCause(), e.getMessage());
+            }
+        });
+
+        partnerThread.execute(() -> {
+            try {
+                partnerIndexer.startAndWait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                log.error("PartnerThread - an error has occurred, cause - {}, message - {}", e.getCause(), e.getMessage());
+            }
+        });
     }
 
 }
