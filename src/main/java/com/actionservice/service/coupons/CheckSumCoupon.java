@@ -67,11 +67,18 @@ public class CheckSumCoupon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CheckSumCoupon that = (CheckSumCoupon) o;
-        return Objects.equals(id, that.id) && Objects.equals(admitadId, that.admitadId) && Objects.equals(name, that.name) && Objects.equals(status, that.status) && Objects.equals(description, that.description) && Objects.equals(regions, that.regions) && Objects.equals(discount, that.discount) && Objects.equals(species, that.species) && Objects.equals(promocode, that.promocode) && Objects.equals(framesetLink, that.framesetLink) && Objects.equals(gotoLink, that.gotoLink) && Objects.equals(shortName, that.shortName) && Objects.equals(dateStart, that.dateStart) && Objects.equals(dateEnd, that.dateEnd) && Objects.equals(imageUrl, that.imageUrl);
+        return Objects.equals(id, that.id) && Objects.equals(admitadId, that.admitadId) && Objects.equals(name, that.name)
+                && Objects.equals(status, that.status) && Objects.equals(description, that.description)
+                && Objects.equals(regions, that.regions) && Objects.equals(discount, that.discount)
+                && Objects.equals(species, that.species) && Objects.equals(promocode, that.promocode)
+                && Objects.equals(framesetLink, that.framesetLink) && Objects.equals(gotoLink, that.gotoLink)
+                && Objects.equals(shortName, that.shortName) && Objects.equals(dateStart, that.dateStart)
+                && Objects.equals(dateEnd, that.dateEnd) && Objects.equals(imageUrl, that.imageUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, admitadId, name, status, description, regions, discount, species, promocode, framesetLink, gotoLink, shortName, dateStart, dateEnd, imageUrl);
+        return Objects.hash(id, admitadId, name, status, description, regions, discount, species, promocode,
+                framesetLink, gotoLink, shortName, dateStart, dateEnd, imageUrl);
     }
 }

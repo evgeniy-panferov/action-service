@@ -46,6 +46,7 @@ dependencies {
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.0.2'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'com.google.guava:guava:31.0.1-jre'
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation group: 'org.hibernate.search', name: 'hibernate-search-mapper-orm', version: '6.0.8.Final'
 	implementation group: 'org.hibernate.search', name: 'hibernate-search-backend-lucene', version: '6.0.8.Final'

@@ -1,11 +1,16 @@
 package com.actionservice.service.coupons;
 
 import com.actionservice.client.AdmitadContentClient;
+import com.actionservice.client.TelegramDiscountServiceClient;
 import com.actionservice.model.Coupon;
 import com.actionservice.model.Partner;
+import com.actionservice.model.dto.telegram.CouponDto;
 import com.actionservice.repository.coupon.CouponDAOImpl;
 import com.actionservice.repository.partner.PartnerDAOImpl;
 import com.actionservice.service.WebmasterWebsiteService;
+import com.actionservice.util.CouponUtil;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,6 +33,7 @@ public class CouponService {
     private final AdmitadContentClient admitadContentClient;
     private final CouponDAOImpl couponRepository;
     private final WebmasterWebsiteService webmasterWebsiteService;
+    private final TelegramDiscountServiceClient telegramDiscountServiceClient;
 
     @Transactional
     public void couponUpdate() {
@@ -66,6 +72,9 @@ public class CouponService {
                     }
                 }
         );
+
+        List<List<CouponDto>> couponDtos = Lists.partition(CouponUtil.toDtos(couponRepository.findAll()), 20);
+        couponDtos.forEach(telegramDiscountServiceClient::sendCoupons);
     }
 
     private List<Coupon> fromAdmitad(Long id) {

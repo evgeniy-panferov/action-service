@@ -52,7 +52,6 @@ public class CheckSumPartner {
         if (admitadId != null ? !admitadId.equals(that.admitadId) : that.admitadId != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (imageUrl != null ? !imageUrl.equals(that.imageUrl) : that.imageUrl != null) return false;
-        if (coupons != null ? !coupons.equals(that.coupons) : that.coupons != null) return false;
         if (categories != null ? !categories.equals(that.categories) : that.categories != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         return exclusive != null ? exclusive.equals(that.exclusive) : that.exclusive == null;
@@ -63,7 +62,6 @@ public class CheckSumPartner {
         int result = admitadId != null ? admitadId.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
-        result = 31 * result + (coupons != null ? coupons.hashCode() : 0);
         result = 31 * result + (categories != null ? categories.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (exclusive != null ? exclusive.hashCode() : 0);

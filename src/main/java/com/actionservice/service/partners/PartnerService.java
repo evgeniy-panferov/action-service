@@ -2,9 +2,13 @@ package com.actionservice.service.partners;
 
 
 import com.actionservice.client.AdmitadContentClient;
+import com.actionservice.client.TelegramDiscountServiceClient;
 import com.actionservice.model.Partner;
+import com.actionservice.model.dto.telegram.PartnerDto;
 import com.actionservice.repository.partner.PartnerDAOImpl;
 import com.actionservice.service.WebmasterWebsiteService;
+import com.actionservice.util.PartnerUtil;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +29,7 @@ public class PartnerService {
     private final WebmasterWebsiteService webmasterWebsiteService;
     private final AdmitadContentClient admitadContentClient;
     private final PartnerDAOImpl partnerRepository;
+    private final TelegramDiscountServiceClient telegramDiscountServiceClient;
 
     @Transactional
     public void partnerUpdate() {
@@ -55,7 +60,8 @@ public class PartnerService {
                 partnerRepository.save(partnerAdm);
             }
         });
+
+        List<List<PartnerDto>> partnerDtos = Lists.partition(PartnerUtil.toDtos(partnerRepository.findAll()), 5);
+        partnerDtos.forEach(telegramDiscountServiceClient::sendPartner);
     }
-
-
 }
