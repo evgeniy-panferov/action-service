@@ -31,9 +31,17 @@ public class PartnerService {
     private final PartnerDAOImpl partnerRepository;
     private final TelegramDiscountServiceClient telegramDiscountServiceClient;
 
-    @Transactional
+
     public void partnerUpdate() {
         log.info("Start partner DB update");
+        update();
+
+        List<List<PartnerDto>> partnerDtos = Lists.partition(PartnerUtil.toDtos(partnerRepository.findAll()), 5);
+        partnerDtos.forEach(telegramDiscountServiceClient::sendPartner);
+    }
+
+    @Transactional
+    void update(){
         List<Partner> partnersAdmitad = admitadContentClient.partnerForSite(
                 webmasterWebsiteService.getWebsiteId("YouPromocodeBot")).getPartners();
 
@@ -60,8 +68,5 @@ public class PartnerService {
                 partnerRepository.save(partnerAdm);
             }
         });
-
-        List<List<PartnerDto>> partnerDtos = Lists.partition(PartnerUtil.toDtos(partnerRepository.findAll()), 5);
-        partnerDtos.forEach(telegramDiscountServiceClient::sendPartner);
     }
 }

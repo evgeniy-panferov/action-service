@@ -35,9 +35,17 @@ public class CouponService {
     private final WebmasterWebsiteService webmasterWebsiteService;
     private final TelegramDiscountServiceClient telegramDiscountServiceClient;
 
-    @Transactional
+
     public void couponUpdate() {
         log.info("Start coupon DB update");
+        update();
+
+        List<List<CouponDto>> couponDtos = Lists.partition(CouponUtil.toDtos(couponRepository.findAll()), 20);
+        couponDtos.forEach(telegramDiscountServiceClient::sendCoupons);
+    }
+
+    @Transactional
+    void update(){
         Map<Long, Partner> partnerByIdDb = partnerRepository.findAll().stream()
                 .collect(Collectors.toMap(Partner::getAdmitadId, Function.identity()));
 
@@ -72,9 +80,6 @@ public class CouponService {
                     }
                 }
         );
-
-        List<List<CouponDto>> couponDtos = Lists.partition(CouponUtil.toDtos(couponRepository.findAll()), 20);
-        couponDtos.forEach(telegramDiscountServiceClient::sendCoupons);
     }
 
     private List<Coupon> fromAdmitad(Long id) {
