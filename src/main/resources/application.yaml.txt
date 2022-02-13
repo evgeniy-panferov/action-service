@@ -15,9 +15,14 @@ spring:
       hibernate:
         search:
           backend:
+            analysis:
+              configurer: class:com.actionservice.config.lucene.RussianLuceneAnalyzerConfigurer
             directory:
               type: local-filesystem
               root: ${user.dir}\src\main\resources\index\
         format_sql: true
 server:
   port: 8081
+
+external:
+  tg-discount-sevice: localhost:8080
