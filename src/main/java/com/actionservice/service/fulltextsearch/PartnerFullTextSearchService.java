@@ -10,6 +10,7 @@ import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -28,6 +29,6 @@ public class PartnerFullTextSearchService {
                 .analyzer(AnalyzerNames.DEFAULT))
                 .fetch(50);
 
-        return result.hits();
+        return result.total().hitCount() == 0 ? Collections.emptyList() : result.hits();
     }
 }

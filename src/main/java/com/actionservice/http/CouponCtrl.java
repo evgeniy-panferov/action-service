@@ -1,6 +1,7 @@
 package com.actionservice.http;
 
 import com.actionservice.http.request.TgRequest;
+import com.actionservice.model.Coupon;
 import com.actionservice.model.dto.telegram.CouponDto;
 import com.actionservice.repository.coupon.CouponDAOImpl;
 import com.actionservice.service.fulltextsearch.CouponFullTextSearchService;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -36,7 +38,12 @@ public class CouponCtrl {
 
     @PostMapping("/search")
     public ResponseEntity<List<CouponDto>> findCouponByString(@RequestBody TgRequest request) {
-        log.info("CouponCtrl findCouponByString - {}", request);
-        return new ResponseEntity<>(CouponUtil.toDtos(searchService.search(request)), HttpStatus.OK);
+        log.info("CouponCtrl findCouponByString - {}", request.getWord());
+        List<Coupon> search = searchService.search(request);
+        if (search.isEmpty()) {
+            return new ResponseEntity<>((Collections.emptyList()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(CouponUtil.toDtos(search), HttpStatus.OK);
     }
 }

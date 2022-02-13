@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -32,6 +33,6 @@ public class CouponFullTextSearchService {
                         .analyzer(AnalyzerNames.DEFAULT))
                 .fetch(50);
 
-        return result.hits();
+        return result.total().hitCount() == 0 ? Collections.emptyList() : result.hits();
     }
 }

@@ -1,6 +1,7 @@
 package com.actionservice.http;
 
 
+import com.actionservice.model.Partner;
 import com.actionservice.model.dto.telegram.PartnerDto;
 import com.actionservice.repository.partner.PartnerDAOImpl;
 import com.actionservice.service.fulltextsearch.PartnerFullTextSearchService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -40,7 +42,14 @@ public class PartnerCtrl {
     @GetMapping("/search")
     public ResponseEntity<List<PartnerDto>> findCouponByString(String searchString) {
         log.info("PartnerCtrl findCouponByString - {}", searchString);
-        return new ResponseEntity<>(PartnerUtil.toDtos(searchService.search(searchString)), HttpStatus.OK);
+
+        List<Partner> search = searchService.search(searchString);
+
+        if(search.isEmpty()){
+            return new ResponseEntity<>((Collections.emptyList()), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(PartnerUtil.toDtos(search), HttpStatus.OK);
     }
 
 }
