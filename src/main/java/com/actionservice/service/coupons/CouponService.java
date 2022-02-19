@@ -35,8 +35,8 @@ public class CouponService {
     private final WebmasterWebsiteService webmasterWebsiteService;
     private final TelegramDiscountServiceClient telegramDiscountServiceClient;
 
-
-    public void couponUpdate() {
+    @Transactional
+    public void send() {
         log.info("Start coupon DB update");
         update();
 
@@ -45,7 +45,7 @@ public class CouponService {
     }
 
     @Transactional
-    void update(){
+    public void update(){
         Map<Long, Partner> partnerByIdDb = partnerRepository.findAll().stream()
                 .collect(Collectors.toMap(Partner::getAdmitadId, Function.identity()));
 

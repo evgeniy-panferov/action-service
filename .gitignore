@@ -35,10 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
-**/src/main/resources/admitad.yaml
-**/src/main/resources/properties/admitad.yaml
 **/src/main/httprequest/admitadrequest.rest
 **/src/main/resources/Response.json
 **/src/main/resources/responseresource.json
-**/src/main/resources/application.yaml
 /src/main/resources/index/

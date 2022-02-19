@@ -45,7 +45,10 @@ public class DbRefreshFacade {
         log.info("DbRefreshFacade dbRefresh");
         var partnerCron = new CronTrigger(PARTNER_CRON);
         var couponCron = new CronTrigger(COUPON_CRON);
-        scheduler.schedule(partnerService::partnerUpdate, partnerCron);
-        scheduler.schedule(couponService::couponUpdate, couponCron);
+        scheduler.schedule(partnerService::update, partnerCron);
+        scheduler.schedule(couponService::update, couponCron);
+        scheduler.schedule(partnerService::send, partnerCron);
+        scheduler.schedule(couponService::send, couponCron);
+
     }
 }

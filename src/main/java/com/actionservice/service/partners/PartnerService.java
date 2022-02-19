@@ -31,8 +31,8 @@ public class PartnerService {
     private final PartnerDAOImpl partnerRepository;
     private final TelegramDiscountServiceClient telegramDiscountServiceClient;
 
-
-    public void partnerUpdate() {
+    @Transactional
+    public void send() {
         log.info("Start partner DB update");
         update();
 
@@ -41,7 +41,7 @@ public class PartnerService {
     }
 
     @Transactional
-    void update(){
+    public void update(){
         List<Partner> partnersAdmitad = admitadContentClient.partnerForSite(
                 webmasterWebsiteService.getWebsiteId("YouPromocodeBot")).getPartners();
 

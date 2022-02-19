@@ -1,7 +1,9 @@
 package com.actionservice.client;
 
+import com.actionservice.config.Views;
 import com.actionservice.model.dto.telegram.CouponDto;
 import com.actionservice.model.dto.telegram.PartnerDto;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +14,8 @@ import java.util.List;
 public interface TelegramDiscountServiceClient {
 
     @PostMapping("/partners")
-    void sendPartner(@RequestBody List<PartnerDto> partners);
+    void sendPartner(@RequestBody @JsonView(Views.Public.class) List<PartnerDto> partners);
 
     @PostMapping("/coupons")
-    void sendCoupons(@RequestBody List<CouponDto> coupons);
+    void sendCoupons(@RequestBody @JsonView(Views.Public.class) List<CouponDto> coupons);
 }

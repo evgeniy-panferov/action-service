@@ -1,0 +1,5 @@
+client_id: ${client_id}
+client_secret: ${client_secret}
+authorization_url: https://api.admitad.com/token/
+limit: 495
+scope: public_data websites manage_websites advcampaigns advcampaigns_for_website manage_advcampaigns banners landings banners_for_website coupons coupons_for_website offline_sales offline_receipts aliexpress_commission vendor_tool
