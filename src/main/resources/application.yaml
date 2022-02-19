@@ -25,4 +25,4 @@ server:
   port: 8081
 
 external:
-  tg-discount-sevice: localhost:8080
+  tg-discount-sevice: ${host}
